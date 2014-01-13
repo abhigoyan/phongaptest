@@ -47,8 +47,9 @@ image.style.display = 'block';
 		
 			var picname = document.getElementById('pic').value;
 			var entry=fileSystem.root;
+			navigator.notification.alert(entry);
 		entry.getDirectory("MasterWork", {create: true, exclusive: false});	
-            fileEntry.moveTo(fileSystem.root+"MasterWork",picname+".jpg"); 
+            fileEntry.moveTo(fileSystem.root+"/MasterWork/",picname+".jpg"); 
             
        }; 
         // get file system to copy or move image file to 
