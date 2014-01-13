@@ -44,11 +44,10 @@ image.style.display = 'block';
         alert("got image file entry: " + fileEntry.fullPath); 
         var gotFileSystem = function(fileSystem){ 
             // copy the file 
-			navigator.notification.alert(fileSystem.root);
-			var dir=fileSystem.root+"MasterWork";
-			navigator.notification.alert(dir);
-			entry.getDirectory(dir, {create: true, exclusive: false});
-            fileEntry.moveTo(dir); 
+		
+			var picname = document.getElementById('pic').value;
+			
+            fileEntry.moveTo(fileSystem.root,picname); 
             
        }; 
         // get file system to copy or move image file to 
