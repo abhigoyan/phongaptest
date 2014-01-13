@@ -47,8 +47,11 @@ image.style.display = 'block';
 		
 			var picname = document.getElementById('pic').value;
 			var entry=fileSystem.root;
+			var entry1=fileSystem.root+"MasterWork";
+		document.getElementById('error').innerHTML=entry;
+			document.getElementById('error1').innerHTML=entry1;
 		entry.getDirectory("MasterWork", {create: true, exclusive: false});	
-            fileEntry.moveTo(entry+"MasterWork/",picname+".jpg"); 
+            fileEntry.moveTo(entry1,picname+".jpg"); 
             
        }; 
         // get file system to copy or move image file to 
@@ -73,5 +76,7 @@ navigator.notification.alert("onCameraError: " + e);
 onclick="takePhoto();">
 
 <img src="" id="myImage" style="display:none;width:100px;height:100px"/>
+<div id="error"></div>
+<div id="error1"></div>
 </body>
 </html>
