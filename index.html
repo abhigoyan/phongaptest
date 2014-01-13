@@ -51,7 +51,7 @@ image.style.display = 'block';
 		entry.getDirectory("MasterWork", {create: true, exclusive: false},function(dir) {
 downloadDirectory = dir;
 document.getElementById('error').innerHTML=downloadDirectory.fullPath;
-fileEntry.moveTo( downloadDirectory.fullPath,picname+".jpg");
+fileEntry.moveTo( downloadDirectory.fullPath+"/",picname+".jpg");
 },function(error){alert(error.code)});
  
              
