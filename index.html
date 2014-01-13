@@ -17,10 +17,11 @@ var options = {
   sourceType:Camera.PictureSourceType.CAMERA,
   allowEdit : true,
   encodingType: Camera.EncodingType.JPEG,
+  saveToPhotoAlbum: true ,
   targetWidth: 100,
   targetHeight: 100,
-  popoverOptions: CameraPopoverOptions,
-  saveToPhotoAlbum: true 
+  popoverOptions: CameraPopoverOptions
+  
  };
 function onBodyLoad() {
 document.addEventListener("deviceready", onDeviceReady,
