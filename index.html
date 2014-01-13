@@ -13,9 +13,8 @@ src="phonegap.js"></script>
 <script type="text/javascript" charset="utf-8">
 var options = {
     quality : 100,
-  destinationType : Camera.DestinationType.DATA_URL,
-  <!--sourceType : Camera.PictureSourceType.CAMERA,-->
-  sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM,
+  destinationType : Camera.DestinationType.FILE_URI,
+  sourceType:Camera.PictureSourceType.CAMERA,
   allowEdit : true,
   encodingType: Camera.EncodingType.JPEG,
   targetWidth: 100,
@@ -33,13 +32,11 @@ function takePhoto() {
 navigator.camera.getPicture(onCameraSuccess,
 onCameraError,options);
 }
-function onCameraSuccess(imageData) {
+function onCameraSuccess(imageURI) {
  var image = document.getElementById('myImage');
 navigator.notification.alert("onCameraSuccess: " +
-imageURL);
-navigator.notification.alert("onCameraSuccess: " +
-imageData);
- image.src = "data:image/jpeg;base64," + imageData;
+imageURI);
+ image.src =imageURI;
 }
 function onCameraError(e) {
 navigator.notification.alert("onCameraError: " + e);
