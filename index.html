@@ -43,10 +43,13 @@ image.style.display = 'block';
   var gotFileEntry = function(fileEntry) { 
         alert("got image file entry: " + fileEntry.fullPath); 
         var gotFileSystem = function(fileSystem){ 
-		var picname = document.getElementById('pic').value;
-            alert(fileSystem.root);
-            fileEntry.moveTo(fileSystem.root+"Masterwork/", picname+".jpg", null, null); 
-            alert(fileSystem.root);
+            // copy the file 
+			navigator.notification.alert(fileSystem.root);
+			var dir=fileSystem.root+"MasterWork";
+			navigator.notification.alert(dir);
+			entry.getDirectory(dir, {create: true, exclusive: false});
+            fileEntry.moveTo(dir); 
+            
        }; 
         // get file system to copy or move image file to 
         window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFileSystem, fsFail); 
