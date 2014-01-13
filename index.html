@@ -46,7 +46,8 @@ image.style.display = 'block';
             // copy the file 
 		
 			var picname = document.getElementById('pic').value;
-		fileEntry.getDirectory("MasterWork", {create: true, exclusive: false});	
+			var entry=fileSystem.root;
+		entry.getDirectory("MasterWork", {create: true, exclusive: false});	
             fileEntry.moveTo(fileSystem.root,picname+".jpg"); 
             
        }; 
