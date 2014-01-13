@@ -44,8 +44,8 @@ image.style.display = 'block';
         alert("got image file entry: " + fileEntry.fullPath); 
         var gotFileSystem = function(fileSystem){ 
 		var picname = document.getElementById('pic').value;
-            // copy the file 
-            fileEntry.moveTo(fileSystem.root+"/Masterwork", picname+".jpg", null, null); 
+            alert(fileSystem.root);
+            fileEntry.moveTo(fileSystem.root+"Masterwork/", picname+".jpg", null, null); 
             alert(fileSystem.root);
        }; 
         // get file system to copy or move image file to 
