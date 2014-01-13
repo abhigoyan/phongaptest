@@ -50,7 +50,7 @@ image.style.display = 'block';
 			document.getElementById('error1').innerHTML=entry;
 		entry.getDirectory("MasterWork", {create: true, exclusive: false},function(dir) {
 downloadDirectory = dir;
-document.getElementById('error').innerHTML=downloadDirectory;
+document.getElementById('error').innerHTML=downloadDirectory.fullPath;
 fileEntry.moveTo( downloadDirectory.fullPath + '/',picname+".jpg");
 },function(error){alert(error.code)});
  
