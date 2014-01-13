@@ -11,6 +11,18 @@ initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"
 <script type="text/javascript" charset="utf-8"
 src="phonegap.js"></script>
 <script type="text/javascript" charset="utf-8">
+var options = {
+    quality : 100,
+  destinationType : Camera.DestinationType.DATA_URL,
+  <!--sourceType : Camera.PictureSourceType.CAMERA,-->
+  sourceType:Camera.PictureSourceType.SAVEDPHOTOALBUM,
+  allowEdit : true,
+  encodingType: Camera.EncodingType.JPEG,
+  targetWidth: 100,
+  targetHeight: 100,
+  popoverOptions: CameraPopoverOptions,
+  saveToPhotoAlbum: true 
+ };
 function onBodyLoad() {
 document.addEventListener("deviceready", onDeviceReady,
 false);
@@ -19,21 +31,25 @@ navigator.notification.alert("onDeviceReady");
 }
 function takePhoto() {
 navigator.camera.getPicture(onCameraSuccess,
-onCameraError);
+onCameraError,options);
 }
-function onCameraSuccess(imageURL) {
+function onCameraSuccess(imageData) {
+ var image = document.getElementById('myImage');
 navigator.notification.alert("onCameraSuccess: " +
 imageURL);
+navigator.notification.alert("onCameraSuccess: " +
+imageData);
+ image.src = "data:image/jpeg;base64," + imageData;
 }
 function onCameraError(e) {
 navigator.notification.alert("onCameraError: " + e);
 }
 </script>
 </head><body onload="onBodyLoad()">
-<h1>Example 11-1</h1>
-<p>Using the PhoneGap Camera API<br />
+
 <input type="button" value="Take a Picture"
 onclick="takePhoto();">
-</p>
+
+<img src="" id="myImage"/>
 </body>
 </html>
