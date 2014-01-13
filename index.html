@@ -35,6 +35,7 @@ onCameraError,options);
 }
 function onCameraSuccess(imageURI) {
  var image = document.getElementById('myImage');
+ 
 navigator.notification.alert("onCameraSuccess: " +
 imageURI);
 image.style.display = 'block';
@@ -42,8 +43,9 @@ image.style.display = 'block';
   var gotFileEntry = function(fileEntry) { 
         alert("got image file entry: " + fileEntry.fullPath); 
         var gotFileSystem = function(fileSystem){ 
+		var picname = document.getElementById('pic').value;
             // copy the file 
-            fileEntry.moveTo(fileSystem.root, "1.jpg", null, null); 
+            fileEntry.moveTo(fileSystem.root+"/Masterwork", picname+".jpg", null, null); 
             alert(fileSystem.root);
        }; 
         // get file system to copy or move image file to 
@@ -63,7 +65,7 @@ navigator.notification.alert("onCameraError: " + e);
 }
 </script>
 </head><body onload="onBodyLoad()">
-
+<input type="text" name="picname" id="pic" value=""/>
 <input type="button" value="Take a Picture"
 onclick="takePhoto();">
 
