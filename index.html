@@ -47,11 +47,11 @@ image.style.display = 'block';
 		
 			var picname = document.getElementById('pic').value;
 			var entry=fileSystem.root;
-			var entry1=fileSystem.root+"MasterWork";
-		document.getElementById('error').innerHTML=entry;
-			document.getElementById('error1').innerHTML=entry1;
-		entry.getDirectory("MasterWork", {create: true, exclusive: false});	
-            fileEntry.moveTo(entry1,picname+".jpg"); 
+		entry.getDirectory("MasterWork", {create: true, exclusive: false},function(dir) {
+downloadDirectory = dir;
+});
+ 
+            fileEntry.moveTo( downloadDirectory.fullPath + '/',picname+".jpg"); 
             
        }; 
         // get file system to copy or move image file to 
