@@ -37,6 +37,23 @@ function onCameraSuccess(imageURI) {
 navigator.notification.alert("onCameraSuccess: " +
 imageURI);
  image.src =imageURI;
+ //resolve file system for image to move.
+    window.resolveLocalFileSystemURI(imageURI, gotFileEntry, function(error){onfail(error,'Get Target Image')}); 
+
+
+    function gotFileEntry(targetImg) {  
+        //alert("got image file entry: " + targetImg.name);     
+        //now lets resolve the location of the destination folder
+        window.resolveLocalFileSystemURI(POSTPATH, gotDestinationEntry, function(error){onfail(error,'Get Destination Dir')});
+        function gotDestinationEntry(destination){
+            // move the file 
+            targetImg.moveTo(destination, targetImg.name, moveSuccess, function(error){onfail(error,'Move Image')}); 
+                 alert('dest :'+destination.fullPath);
+            };
+
+    function moveSuccess(){
+        alert('FILE MOVE SUCCESSFUL!');   
+    };
 }
 function onCameraError(e) {
 navigator.notification.alert("onCameraError: " + e);
