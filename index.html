@@ -61,11 +61,13 @@ function resolveOnSuccess(entry){
     fileSys.root.getDirectory( myFolderApp,
                     {create:true, exclusive: false},
                     function(directory) {
-                        entry.moveTo(directory, newFileName);
+                        entry.moveTo(directory, newFileName,uploadPhoto,funtion(error){alert(error.code)});
                     },
                     resOnError);
                     },
     resOnError);
+	 function uploadPhoto(imageURI) {
+	 	navigator.notification.alert("inside upload function"+imageURI);
  var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
@@ -82,7 +84,7 @@ function resolveOnSuccess(entry){
              document.getElementById('error5')=options.params;
             var ft = new FileTransfer();
             ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
-        
+        }
 
         function win(r) {
             console.log("Code = " + r.responseCode);
