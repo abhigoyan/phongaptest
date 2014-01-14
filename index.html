@@ -55,10 +55,12 @@ src="phonegap.js"></script>
                 fileSys.root.getDirectory( myFolderApp,
                         {create:true, exclusive: false},
                         function(directory) {
-                            entry.moveTo(directory, newFileName,uploadPhoto);
+                            entry.moveTo(directory, newFileName,uploadPhoto,failerror);
             },
                     resOnError);
-          
+          function failerror(error){
+          	alert(error.code);
+          }
             function uploadPhoto(imageURI) {
                 navigator.notification.alert("inside upload photo function: " +
            imageURI);
