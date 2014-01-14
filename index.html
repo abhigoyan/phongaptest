@@ -62,22 +62,22 @@ src="phonegap.js"></script>
             function uploadPhoto(imageURI) {
                 navigator.notification.alert("inside upload photo function: " +
            imageURI);
-                var options = new FileUploadOptions();
-                options.fileKey="file";
-                options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
-                options.mimeType="image/jpeg";
+                var foptions = new FileUploadOptions();
+                foptions.fileKey="file";
+                foptions.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+                foptions.mimeType="image/jpeg";
                 document.getElementById('error2').innerHTML=imageURI;
-                document.getElementById('error3').innerHTML=options.fileKey;
-                document.getElementById('error4').innerHTML=options.fileName;
+                document.getElementById('error3').innerHTML=foptions.fileKey;
+                document.getElementById('error4').innerHTML=foptions.fileName;
 			
                 var params = {};
                 params.value1 = "test";
                 params.value2 = "param";
 
-                options.params = params;
-                document.getElementById('error5').innerHTML=options.params;
+                foptions.params = params;
+                document.getElementById('error5').innerHTML=foptions.params;
                 var ft = new FileTransfer();
-                ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
+                ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, foptions);
             }
 
             function win(r) {
@@ -96,7 +96,10 @@ src="phonegap.js"></script>
 
         }
     }
-
+function onCameraError(error)
+{
+	alert(error.code);
+}
        
 </script>
 </head><body onload="onBodyLoad()">
