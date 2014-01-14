@@ -33,10 +33,7 @@ function takePhoto() {
 navigator.camera.getPicture(onCameraSuccess,
 onCameraError,options);
 }
-function uploadPhoto()
-{
 
-}
 function onCameraSuccess(imageURI) {
  var image = document.getElementById('myImage');
  
@@ -67,21 +64,22 @@ function resolveOnSuccess(entry){
                     },
     resOnError);
 	 function uploadPhoto(imageURI) {
-	 	navigator.notification.alert("inside upload function"+imageURI);
+	 navigator.notification.alert("inside upload photo function: " +
+imageURI);
  var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
-			 document.getElementById('error2')=imageURI;
-             document.getElementById('error3')=options.fileKey;
-			 document.getElementById('error4')=options.fileName;
+			 document.getElementById('error2').innerHTML=imageURI;
+             document.getElementById('error3').innerHTML=options.fileKey;
+			 document.getElementById('error4').innerHTML=options.fileName;
 			
             var params = {};
             params.value1 = "test";
             params.value2 = "param";
 
             options.params = params;
-             document.getElementById('error5')=options.params;
+             document.getElementById('error5').innerHTML=options.params;
             var ft = new FileTransfer();
             ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
         }
@@ -114,8 +112,6 @@ navigator.notification.alert("onCameraError: " + e);
 <input type="button" value="Take a Picture"
 onclick="takePhoto();">
 
-<input type="button" value="Upload Pic"
-onclick="uploadPhoto();">
 <img src="" id="myImage" style="display:none;width:100px;height:100px"/>
 <div id="error"></div>
 <div id="error1"></div>
