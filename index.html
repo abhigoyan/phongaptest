@@ -30,9 +30,12 @@ false);
 navigator.notification.alert("onDeviceReady");
 }
 function takePhoto() {
-    navigator.notification.vibrate(1000);
 navigator.camera.getPicture(onCameraSuccess,
 onCameraError,options);
+}
+function uploadPhoto()
+{
+
 }
 function onCameraSuccess(imageURI) {
  var image = document.getElementById('myImage');
@@ -47,7 +50,10 @@ image.style.display = 'block';
 
 //Callback function when the file system uri has been resolved
 function resolveOnSuccess(entry){ 
-    
+    var d = new Date();
+    var n = d.getTime();
+    //new file name
+    var newFileName = n + ".jpg";
     var myFolderApp = "MasterWork";
 
     window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
@@ -55,25 +61,41 @@ function resolveOnSuccess(entry){
     fileSys.root.getDirectory( myFolderApp,
                     {create:true, exclusive: false},
                     function(directory) {
-                        var d = new Date();
-                        var n = d.getTime();
-                      //new file name
-                         var newFileName = n + ".jpg";
-                        entry.moveTo(directory, newFileName,  successMove, resOnError);
+                        entry.moveTo(directory, newFileName);
                     },
                     resOnError);
                     },
     resOnError);
-}
+ var options = new FileUploadOptions();
+            options.fileKey="file";
+            options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
+            options.mimeType="image/jpeg";
+			 document.getElementById('error2')=imageURI;
+             document.getElementById('error3')=options.fileKey;
+			 document.getElementById('error4')=options.fileName;
+			
+            var params = {};
+            params.value1 = "test";
+            params.value2 = "param";
 
-//Callback function when the file has been moved successfully - inserting the complete path
-function successMove(entry) {
-    //I do my insert with "entry.fullPath" as for the path
-}
+            options.params = params;
+             document.getElementById('error5')=options.params;
+            var ft = new FileTransfer();
+            ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
+        }
 
-function resOnError(error) {
-    alert(error.code);
-} 
+        function win(r) {
+            console.log("Code = " + r.responseCode);
+            console.log("Response = " + r.response);
+            console.log("Sent = " + r.bytesSent);
+        }
+
+        function fail(error) {
+            alert("An error has occurred: Code = " + error.code);
+            console.log("upload error source " + error.source);
+            console.log("upload error target " + error.target);
+        }	
+}
 }
 
 //file system fail 
@@ -90,8 +112,15 @@ navigator.notification.alert("onCameraError: " + e);
 <input type="button" value="Take a Picture"
 onclick="takePhoto();">
 
+<input type="button" value="Upload Pic"
+onclick="uploadPhoto();">
 <img src="" id="myImage" style="display:none;width:100px;height:100px"/>
 <div id="error"></div>
 <div id="error1"></div>
+<div id="error2"></div>
+<div id="error3"></div>
+<div id="error4"></div>
+<div id="error5"></div>
+
 </body>
 </html>
