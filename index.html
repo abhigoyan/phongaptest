@@ -11,75 +11,74 @@ initial-scale=1.0, maximum-scale=1.0, user-scalable=no;"
 <script type="text/javascript" charset="utf-8"
 src="phonegap.js"></script>
 <script type="text/javascript" charset="utf-8">
-var options = {
-    quality : 100,
-  destinationType : Camera.DestinationType.FILE_URI,
-  sourceType:Camera.PictureSourceType.CAMERA,
-  allowEdit : true,
-  encodingType: Camera.EncodingType.JPEG,
-  saveToPhotoAlbum: true ,
-  targetWidth: 100,
-  targetHeight: 100,
-  popoverOptions: CameraPopoverOptions
+    var options = {
+        quality : 100,
+        destinationType : Camera.DestinationType.FILE_URI,
+        sourceType:Camera.PictureSourceType.CAMERA,
+        allowEdit : true,
+        encodingType: Camera.EncodingType.JPEG,
+        saveToPhotoAlbum: true ,
+        targetWidth: 100,
+        targetHeight: 100,
+        popoverOptions: CameraPopoverOptions
   
- };
-function onBodyLoad() {
-document.addEventListener("deviceready", onDeviceReady,
-false);
-}function onDeviceReady() {
-navigator.notification.alert("onDeviceReady");
-}
-function takePhoto() {
-navigator.camera.getPicture(onCameraSuccess,
-onCameraError,options);
-}
+    };
+    function onBodyLoad() {
+        document.addEventListener("deviceready", onDeviceReady,
+        false);
+    }function onDeviceReady() {
+        navigator.notification.alert("onDeviceReady");
+    }
+    function takePhoto() {
+        navigator.camera.getPicture(onCameraSuccess,
+        onCameraError,options);
+    }
 
-function onCameraSuccess(imageURI) {
- var image = document.getElementById('myImage');
+    function onCameraSuccess(imageURI) {
+        var image = document.getElementById('myImage');
  
-navigator.notification.alert("onCameraSuccess: " +
-imageURI);
-image.style.display = 'block';
- image.src =imageURI;
+        navigator.notification.alert("onCameraSuccess: " +
+        imageURI);
+        image.style.display = 'block';
+        image.src =imageURI;
  
-    window.resolveLocalFileSystemURI(imageURI, resolveOnSuccess, resOnError); 
+        window.resolveLocalFileSystemURI(imageURI, resolveOnSuccess, resOnError); 
 
 
-//Callback function when the file system uri has been resolved
-function resolveOnSuccess(entry){ 
-    var d = new Date();
-    var n = d.getTime();
-    //new file name
-    var newFileName = n + ".jpg";
-    var myFolderApp = "MasterWork";
+        //Callback function when the file system uri has been resolved
+        function resolveOnSuccess(entry){ 
+            var d = new Date();
+            var n = d.getTime();
+            //new file name
+            var newFileName = n + ".jpg";
+            var myFolderApp = "MasterWork";
 
-    window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
-    //The folder is created if doesn't exist
-    fileSys.root.getDirectory( myFolderApp,
-                    {create:true, exclusive: false},
-                    function(directory) {
-                        entry.moveTo(directory, newFileName,uploadPhoto,funtion(error){alert(error.code);});
-                    },
-                    resOnError);
-                    },
-    resOnError);
-	 function uploadPhoto(imageURI) {
-	 navigator.notification.alert("inside upload photo function: " +
-imageURI);
- var options = new FileUploadOptions();
+            window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, function(fileSys) {      
+                //The folder is created if doesn't exist
+                fileSys.root.getDirectory( myFolderApp,
+                                {create:true, exclusive: false},
+                                function(directory) {
+                                    entry.moveTo(directory, newFileName,uploadPhoto);
+            },
+                            resOnError);
+       
+        function uploadPhoto(imageURI) {
+            navigator.notification.alert("inside upload photo function: " +
+       imageURI);
+            var options = new FileUploadOptions();
             options.fileKey="file";
             options.fileName=imageURI.substr(imageURI.lastIndexOf('/')+1);
             options.mimeType="image/jpeg";
-			 document.getElementById('error2').innerHTML=imageURI;
-             document.getElementById('error3').innerHTML=options.fileKey;
-			 document.getElementById('error4').innerHTML=options.fileName;
+            document.getElementById('error2').innerHTML=imageURI;
+            document.getElementById('error3').innerHTML=options.fileKey;
+            document.getElementById('error4').innerHTML=options.fileName;
 			
             var params = {};
             params.value1 = "test";
             params.value2 = "param";
 
             options.params = params;
-             document.getElementById('error5').innerHTML=options.params;
+            document.getElementById('error5').innerHTML=options.params;
             var ft = new FileTransfer();
             ft.upload(imageURI, encodeURI("http://some.server.com/upload.php"), win, fail, options);
         }
@@ -95,17 +94,17 @@ imageURI);
             console.log("upload error source " + error.source);
             console.log("upload error target " + error.target);
         }	
-}
-}
+    }
+    }
 
-//file system fail 
-function fsFail(error) { 
-    alert("failed with error code: " + error.code); 
+    //file system fail 
+    function fsFail(error) { 
+        alert("failed with error code: " + error.code); 
  
-}
-function onCameraError(e) {
-navigator.notification.alert("onCameraError: " + e);
-}
+    }
+    function onCameraError(e) {
+        navigator.notification.alert("onCameraError: " + e);
+    }
 </script>
 </head><body onload="onBodyLoad()">
 <input type="text" name="picname" id="pic" value=""/>
@@ -122,3 +121,4 @@ onclick="takePhoto();">
 
 </body>
 </html>
+
