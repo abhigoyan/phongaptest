@@ -55,7 +55,7 @@ src="phonegap.js"></script>
                 fileSys.root.getDirectory( myFolderApp,
                         {create:true, exclusive: false},
                         function(directory) {
-                            entry.moveTo(directory, newFileName,uploadPhoto,failerror);
+                            entry.moveTo(directory, newFileName,uploadPhoto,uploadPhoto);
             },
                     resOnError);
           function failerror(error){
