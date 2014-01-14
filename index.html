@@ -61,7 +61,7 @@ function resolveOnSuccess(entry){
     fileSys.root.getDirectory( myFolderApp,
                     {create:true, exclusive: false},
                     function(directory) {
-                        entry.moveTo(directory, newFileName,uploadPhoto,funtion(error){alert(error.code)});
+                        entry.moveTo(directory, newFileName,uploadPhoto,funtion(error){alert(error.code);});
                     },
                     resOnError);
                     },
